@@ -9,23 +9,36 @@
 </head>
 
 <body>
-    <form action="/action_page.php">
+    <form action="" method="POST">
         <label for="name">Name:</label>
         <input type="text" id="name" name="name"><br><br>
 
         <label for="birthday">DOB:</label>
         <input type="date" id="birthday" name="birthday"><br><br>
-        
-        <label for="address">Address:</label> 
+
+        <label for="address">Address:</label>
         <textarea id="address" name="address" rows="4" cols="50"></textarea><br><br>
-        
-        <label for="postcode">Postcode:</label> 
-        <input id="postcode" name="postcode" type="text" pattern="[0-9]{5}"><br><br>
+
+        <label for="postcode">Postcode:</label>
+        <input id="postcode" name="postcode" type="text" pattern="[0-9]{5}" ><br><br>
 
         <label for="state">State:</label>
         <input type="text" id="state" name="state" disabled><br><br>
-        
+
         <input type="submit" value="Submit">
     </form>
 </body>
+
+<script>
+    let element = document.getElementById("postcode")
+    element.addEventListener("input", onPostcodeChange);
+    async function onPostcodeChange(e){
+        let postcode = e.target.value;
+        let returnPost = await fetch(`http://localhost:3000/?postcode=${postcode}`)
+        let text = await returnPost.text()
+        console.log(text);
+        document.getElementById('state').value = text;
+    }
+</script>
+
 </html>
