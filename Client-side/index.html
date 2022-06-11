@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> User Form </title>
+</head>
+
+<body>
+    <form action="/action_page.php">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name"><br><br>
+
+        <label for="birthday">DOB:</label>
+        <input type="date" id="birthday" name="birthday"><br><br>
+        
+        <label for="address">Address:</label> 
+        <textarea id="address" name="address" rows="4" cols="50"></textarea><br><br>
+        
+        <label for="postcode">Postcode:</label> 
+        <input id="postcode" name="postcode" type="text" pattern="[0-9]{5}"><br><br>
+
+        <label for="state">State:</label>
+        <input type="text" id="state" name="state" disabled><br><br>
+        
+        <input type="submit" value="Submit">
+    </form>
+</body>
+</html>
