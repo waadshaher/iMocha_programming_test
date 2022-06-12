@@ -9,7 +9,8 @@
 </head>
 
 <body>
-    <form action="http://localhost:3000/createUser" method="POST">
+    <!-- action="http://localhost:3000/createUser" method="POST -->
+    <form id="user-form">
         <label for="name">Name:</label>
         <input type="text" id="name" name="name"><br><br>
 
@@ -20,7 +21,7 @@
         <textarea id="address" name="address" rows="4" cols="50"></textarea><br><br>
 
         <label for="postcode">Postcode:</label>
-        <input id="postcode" name="postcode" type="text" pattern="[0-9]{5}" ><br><br>
+        <input id="postcode" name="postcode" type="text" pattern="[0-9]{5}"><br><br>
 
         <label for="state">State:</label>
         <input type="text" id="state" name="state" disabled><br><br>
@@ -30,11 +31,36 @@
 </body>
 
 <script>
+
+
+    let formElement = document.getElementById("user-form")
+    formElement.addEventListener("submit", onUserFormSubmit);
+    async function onUserFormSubmit(e) {
+        // prevent reload
+        e.preventDefault();
+
+        let formData = new FormData(formElement);
+        // formData.append('state', document.getElementById('state').value);
+        const value = Object.fromEntries(formData.entries());
+        let json = JSON.stringify(value);
+
+        // send form values as form data (one object)
+        var url = 'http://localhost:3000/createUser';
+        let response = await fetch(url, {
+            method: 'POST', body: json, headers: {
+                'Content-Type': 'application/json'
+            },
+        });
+        let text = await response.text();
+        console.log(text);
+    }
+
+
     let element = document.getElementById("postcode")
     element.addEventListener("input", onPostcodeChange);
-    async function onPostcodeChange(e){
+    async function onPostcodeChange(e) {
         let postcode = e.target.value;
-        let returnPost = await fetch(`http://localhost:3000/?postcode=${postcode}`)
+        let returnPost = await fetch(`http://localhost:3000/getState?postcode=${postcode}`)
         let text = await returnPost.text()
         console.log(text);
         document.getElementById('state').value = text;
