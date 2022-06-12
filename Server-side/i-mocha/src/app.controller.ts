@@ -7,13 +7,8 @@ import { UserDto } from './app.userDTO';
 export class AppController {
   constructor(private readonly appService: AppService) {}
 
-  // @Get()
-  // getHello(): string {
-  //   return this.appService.getHello();
-  // }
-
   // question 2
-  @Get()
+  @Get('getState')
   @ApiQuery({ name: 'postcode',type: String })
   getPostcode(@Query() query: { postcode: string }): string{
     // return the state name
